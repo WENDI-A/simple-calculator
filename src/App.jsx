@@ -6,7 +6,6 @@ import Keypad from "./components/Keypad";
 function App() {
   return (
     <div className="App">
-      <Display />
       <Calculator />
     </div>
   );

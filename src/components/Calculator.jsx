@@ -2,39 +2,53 @@ import Keypad from "./Keypad";
 import Display from "./Display";
 import { useState } from "react";
 
-const Calculator = ()=>{
+const Calculator = () => {
+  const [input, setInput] = useState('');
 
-const [input, setInput] = useState('');
-  const handleNumberClick = (num) => setInput((prev) => prev + num);
+  const handleNumberClick = (value) => {
+           setInput((prev) => prev + value);
+  }
+   
 
-const handleOperatorClick = (op) => setInput((prev) => prev + op);
-;
+  const handleOperatorClick = (operator) => {
+        setInput((prev) => prev + operator);
+  }
+   
 
-    const DecimalClick = () => {
-       if(!input.endwith(".")) setInput((prev) => prev + '.');
-    };
+  const handleDecimalClick = () => {
+        setInput((prev) => prev + '.');
+  };
 
-    const handleEqualsClick = ()=>{
-        try {
-            setInput(eval(input).toString());
-        }catch (error) {
+  const handleEqualsClick = () => {
+    try {
+      setInput(eval(input).toString());
+    } catch(error) {
       setInput("Error");
-        }
-
     }
+  };
 
+  const handleClearClick = () => {
+        setInput('');
+  }
+  
+  const handleDeleteClick = () => {
+       setInput((prev) => prev.slice(0, -1));
+  }
+  
 
+  return (
+    <div className="bg-gray-900 text-white max-w-sm mx-auto mt-10 p-4 rounded-xl shadow-lg">
+      <Display input={input} />
+      <Keypad
+        handleNumberClick={handleNumberClick}
+        handleOperatorClick={handleOperatorClick}
+        handleDecimalClick={handleDecimalClick}
+        handleEqualsClick={handleEqualsClick}
+        handleClearClick={handleClearClick}
+        handleDeleteClick={handleDeleteClick}
+      />
+    </div>
+  );
+};
 
-    return(
-        <div className="bg-gray-900  text-bold text-white max-w-sm mx-auto  mt-10 p-4 rounded-xl shadow-lg h-130"> 
-            <Keypad 
-            handleEqualsClick={handleEqualsClick}
-            handleNumberClick={handleNumberClick}
-            handleOperatorClick={handleOperatorClick}
-            />
-        </div>
-    )
-}
-
-
-export default  Calculator;
+export default Calculator;
